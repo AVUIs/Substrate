@@ -27,3 +27,43 @@ Ideas:
 * Controls
   * Multi finger touches
   * Button zones (can be hidden)
+
+
+PITCH
+
+Its an audiovisual substrate that allow you to jam with particles on a touchscreen and generate
+messagges that will be sent to a sound engine.
+
+
+What Libraries do we use
+
+* Raef physics 
+* Open Sound Control Library
+* An audio engine 
+
+
+
+Task 1
+
+* Setup the environments 
+* Download the libraries
+
+
+Task 2
+
+Demo the particle library so every one understand how it works
+Setup particles generator
+
+Task 3
+
+Setup the messagess using Processing OSC 
+Let's set it up to send 
+
+* particle coordinates
+* velocity
+if something else come up we do.
+
+
+
+
+
