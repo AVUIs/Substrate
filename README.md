@@ -18,6 +18,11 @@ Place library in `~/sketchbook/libraries`
 * oscP5
   * http://www.sojamo.de/libraries/oscP5/
 
+### Crash course on Processing
+
+* https://cdn.sparkfun.com/assets/6/3/f/e/3/Processing_Cheatsheet_Update.pdf
+* http://assets.surattack.com/files/processing_cheat_sheet_english.pdf
+
 ## Sprint 1
 
 Tools:
