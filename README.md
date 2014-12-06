@@ -9,6 +9,15 @@
 * Single screen
 * Interactive
 
+### Libraries:
+
+Place library in `~/sketchbook/libraries`
+
+* Traer Physics 
+  * http://murderandcreate.com/physics/
+* oscP5
+  * http://www.sojamo.de/libraries/oscP5/
+
 ## Sprint 1
 
 Tools:
