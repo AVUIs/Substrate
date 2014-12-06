@@ -14,6 +14,7 @@
 Tools:
 
 * Processing
+* Git 
 * An audio server recieving OSC commands from visual app
 
 Ideas:
