@@ -2,9 +2,9 @@ import ddf.minim.*;
 import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
-Integer filterFreq = 5000;
+Integer filterFreq = 100;
 Minim minim;
-MoogFilter lpf;
+LowPassFS lpf;
 
 void setup() {
   Oscil wave;
@@ -28,14 +28,11 @@ void setup() {
   // args:
   //    amp
   //    Noise.Tint(WHITE PINK RED BROWN)
-  noise = new Noise(1, Noise.Tint.PINK);
+  noise = new Noise(1, Noise.Tint.BROWN);
 
   // Create a low pass filter
-  // args:
-  //    freq
-  //    resonance
-  //    filter type
-  lpf = new MoogFilter(filterFreq, 0.2, MoogFilter.Type.LP);
+  // args: freq
+  lpf = new LowPassFS(filterFreq, out.sampleRate());
 
   // Patch to output
   noise.patch(lpf)
@@ -43,9 +40,9 @@ void setup() {
 }
 
 void draw() {
-  filterFreq = filterFreq + 1;
+  filterFreq = round(filterFreq * 1.005);
 
-  lpf.frequency = filterFreq;
+  lpf.setFreq(filterFreq);
 
   println(filterFreq);
   background(0);
