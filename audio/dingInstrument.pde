@@ -4,9 +4,10 @@ class DingInstrument implements Instrument
   AudioOutput out;
   ADSR adsr;
 
-  DingInstrument(Integer freq, AudioOutput output) {
+  DingInstrument(float freq, AudioOutput output) {
     out = output;
 
+    println(freq);
     // Create a oscillator
     // args:
     //    pitch
@@ -22,13 +23,11 @@ class DingInstrument implements Instrument
   }
 
   void noteOn(float dur) {
-    println(dur);
     adsr.noteOn();
     adsr.patch(out);
   }
   
   void noteOff() {
-    println("off");
     adsr.unpatchAfterRelease(out);
     adsr.noteOff();
   }
