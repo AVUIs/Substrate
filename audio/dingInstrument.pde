@@ -1,12 +1,16 @@
+float[] notes = { 440, 392, 349.23, 329.63, 293.66, 261.63, 246.94 };
+
 class DingInstrument implements Instrument
 {
   ADSR ampEnv;
   AudioOutput out;
   Line pitchEnv;
   Oscil wave;
+  float freq;
 
-  DingInstrument(float freq, AudioOutput output) {
+  DingInstrument(AudioOutput output) {
     out = output;
+    freq = notes[floor(random(0, notes.length))];
 
     // Check the docks for these args. They are NOT ADSR... sigh
     ampEnv   = new ADSR(0.5, 0.03, 0.4, 0.1, 0.1);
@@ -27,6 +31,7 @@ class DingInstrument implements Instrument
   }
 
   void noteOn(float dur) {
+
     pitchEnv.activate();
     ampEnv.noteOn();
     ampEnv.patch(out);

@@ -7,7 +7,6 @@ DingInstrument ding;
 Integer filterFreq = 100;
 LowPassFS lpf;
 Minim minim;
-float[] notes = { 440, 392, 349.23, 329.63, 293.66, 261.63, 246.94 };
 
 void setup() {
   Noise noise;
@@ -39,6 +38,5 @@ void draw() {
 }
 
 void keyPressed(){
-  float note = notes[floor(random(0, notes.length))];
-  out.playNote(0.0, 0.3, new DingInstrument(note / 2, out));
+  out.playNote(0.0, 0.3, new DingInstrument(out));
 }
