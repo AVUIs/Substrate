@@ -1,34 +1,39 @@
 class DingInstrument implements Instrument
 {
-  Oscil wave;
+  ADSR ampEnv;
   AudioOutput out;
-  ADSR adsr;
+  Line pitchEnv;
+  Oscil wave;
 
   DingInstrument(float freq, AudioOutput output) {
     out = output;
 
-    println(freq);
+    // Check the docks for these args. They are NOT ADSR... sigh
+    ampEnv   = new ADSR(0.5, 0.03, 0.4, 0.1, 0.1);
+    pitchEnv = new Line(0.02, freq * 2, freq);
+
     // Create a oscillator
     // args:
     //    pitch
     //    amp
     //    waveform
-    wave = new Oscil(freq, 0.5, Waves.TRIANGLE);
+    wave = new Oscil(freq, 0.5, Waves.SQUARE);
 
-    // Check the docks for these args. They are NOT ADSR... sigh
-    adsr = new ADSR(0.5, 0.01, 0.05, 0.5, 0.5);
+    pitchEnv = new Line( 0.05, freq / 2, freq);
+    pitchEnv.patch(wave.frequency);
 
     // patch the Oscil to the envelope
-    wave.patch(adsr);
+    wave.patch(ampEnv);
   }
 
   void noteOn(float dur) {
-    adsr.noteOn();
-    adsr.patch(out);
+    pitchEnv.activate();
+    ampEnv.noteOn();
+    ampEnv.patch(out);
   }
   
   void noteOff() {
-    adsr.unpatchAfterRelease(out);
-    adsr.noteOff();
+    ampEnv.unpatchAfterRelease(out);
+    ampEnv.noteOff();
   }
 }

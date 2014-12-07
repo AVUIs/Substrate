@@ -40,5 +40,5 @@ void draw() {
 
 void keyPressed(){
   float note = notes[floor(random(0, notes.length))];
-  out.playNote(0.0, 0.3, new DingInstrument(note, out));
+  out.playNote(0.0, 0.3, new DingInstrument(note / 2, out));
 }
