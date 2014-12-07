@@ -1,4 +1,10 @@
-# Group Five
+# Substrate
+
+From group Five
+
+* [berkan](github.com/berkan)
+* [lpil](github.com/lpil)
+* [zipporobotics](github.com/zipporobotics)
 
 ## Goals
 
