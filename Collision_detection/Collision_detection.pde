@@ -1,8 +1,18 @@
 import traer.physics.*;
 
+import ddf.minim.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
 
 Particle mouse, b, c;
 ParticleSystem physics;
+
+AudioOutput out;
+DingInstrument ding;
+Integer filterFreq = 100;
+LowPassFS lpf;
+Minim minim;
+float[] notes = { 440, 392, 349.23, 329.63, 293.66, 261.63, 246.94 };
 
 int ellipseWidth= 5; //Width of the ball
 int ellipseHeight=5; //Lenght of the ball
@@ -27,6 +37,11 @@ void setup()
   physics.makeAttraction( mouse, b, 10000, 10 );
   physics.makeAttraction( mouse, c, 10000, 10 );
   physics.makeAttraction( b, c, -10000, 5 );
+
+  Noise noise;
+  minim = new Minim(this);
+  out = minim.getLineOut();
+  ding = new DingInstrument(440, out);
 }
 
 void draw()
@@ -78,10 +93,13 @@ void Xcollisiondetection ( float e, float r, float g, float a )
   println(coll);
   
   if (coll < ellipseWidth + 1 )
-   {
-     i= i + 1;
-     println("collision= " + i);
-   }
+  {
+    i= i + 1;
+    println("collision= " + i);
+
+    float note = notes[floor(random(0, notes.length))];
+    out.playNote(0.0, 0.3, new DingInstrument(note, out));
+  }
 }
 
 
