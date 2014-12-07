@@ -13,10 +13,8 @@ Integer filterFreq = 100;
 LowPassFS lpf;
 Minim minim;
 
-int ellipseWidth= 5; //Width of the ball
-int ellipseHeight=5; //Lenght of the ball
-
-int i=0;
+int ellipseWidth  = 55; // Width of the ball
+int ellipseHeight = 55; // Lenght of the ball
 
 void setup()
 {
@@ -26,15 +24,15 @@ void setup()
   ellipseMode( CENTER );
   noStroke();
   noCursor();
-  
+
   physics = new ParticleSystem();
   mouse = physics.makeParticle();
   mouse.makeFixed();
   b = physics.makeParticle( 1.0, random( 0, width ), random( 0, height ), 0 );
   c = physics.makeParticle( 1.0, random( 0, width ), random( 0, height ), 0 );
-  
-  physics.makeAttraction( mouse, b, 10000, 10 );
-  physics.makeAttraction( mouse, c, 10000, 10 );
+
+  physics.makeAttraction( mouse, b, 1000, 10 );
+  physics.makeAttraction( mouse, c, 1000, 10 );
   physics.makeAttraction( b, c, -10000, 5 );
 
   Noise noise;
@@ -45,30 +43,34 @@ void setup()
 void draw()
 {
   mouse.position().set( mouseX, mouseY, 0 );
-  handleBoundaryCollisions( b );
-  handleBoundaryCollisions( c );
+  handleBoundaryCollisions(b);
+  handleBoundaryCollisions(c);
   physics.tick();
 
+  float x1 = b.position().x();
+  float y1 = b.position().y();
+  float x2 = c.position().x();
+  float y2 = c.position().y();
+
   background( 255 );
-  
+
   stroke( 0 );
   noFill();
-  ellipse( mouse.position().x(), mouse.position().y(), 35, 35 );
+  ellipse(mouse.position().x(), mouse.position().y(), 35, 35 );
 
-  
+  Xcollisiondetection(x1, y1, x2, y2);
+
   fill( 0 );
-  ellipse( b.position().x(), b.position().y(), ellipseWidth, ellipseHeight );
-   
+  ellipse(x1, y1, ellipseWidth, ellipseHeight);
+
   fill( 0 );
-  ellipse( c.position().x(), c.position().y(), ellipseWidth, ellipseHeight );
-  Xcollisiondetection(b.position().x(), c.position().x(), b.position().y(), c.position().y());
-  
-  
+  ellipse(x2, y2, ellipseWidth, ellipseHeight);
 }
 
 // really basic collision strategy:
 // sides of the window are walls
-// if it hits a wall pull it outside the wall and flip the direction of the velocity
+// if it hits a wall pull it outside the wall and flip the direction of the
+// velocity
 // the collisions aren't perfect so we take them down a notch too
 void handleBoundaryCollisions( Particle p )
 {
@@ -76,31 +78,5 @@ void handleBoundaryCollisions( Particle p )
     p.velocity().set( -0.9*p.velocity().x(), p.velocity().y(), 0 );
   if ( p.position().y() < 0 || p.position().y() > height )
     p.velocity().set( p.velocity().x(), -0.9*p.velocity().y(), 0 );
-  p.position().set( constrain( p.position().x(), 0, width ), constrain( p.position().y(), 0, height ), 0 ); 
+  p.position().set( constrain( p.position().x(), 0, width ), constrain( p.position().y(), 0, height ), 0 );
 }
-
-/*Function that calculates the collision between two particles*/
-void Xcollisiondetection ( float e, float r, float g, float a )
-{
-  //Two particles collision formula |x1 - x2| + |y1 - y2|
-  
- // print("b position= " + e);  // Printing a String
- //println("c position= " + r);  // Printing a String
-  float coll= round(abs((e-r) + (g-a)));
-
-  println(coll);
-  
-  if (coll < ellipseWidth + 1 )
-  {
-    i= i + 1;
-    println("collision= " + i);
-
-    float note = notes[floor(random(0, notes.length))];
-    out.playNote(0.0, 0.3, new DingInstrument(out));
-  }
-}
-
-
-
-
-
