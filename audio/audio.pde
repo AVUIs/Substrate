@@ -5,9 +5,9 @@ import ddf.minim.effects.*;
 Integer filterFreq = 100;
 Minim minim;
 LowPassFS lpf;
+DingInstrument ding;
 
 void setup() {
-  Oscil wave;
   Noise noise;
 
   size(100, 100);
@@ -15,14 +15,8 @@ void setup() {
   minim = new Minim(this);
   AudioOutput out = minim.getLineOut();
 
-  // Create a oscillator
-  // args:
-  //    pitch
-  //    amp
-  //    waveform
-  // wave = new Oscil( 440, 0.5, Waves.TRIANGLE );
-  // patch the Oscil to the output
-  // wave.patch( out );
+  ding = new DingInstrument(440, out);
+
 
   // Create a noise oscillator
   // args:
